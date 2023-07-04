@@ -1,6 +1,8 @@
 import cv2
 import pytesseract
 import easyocr
+from PIL import Image
+import numpy as np
 
 def detect_text_regions(image):
     reader = easyocr.Reader(['en'])
@@ -14,25 +16,30 @@ def detect_text_regions(image):
     return text_regions
 
 def process_image(image_path):
-    image = cv2.imread(image_path)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = Image.open(image_path).convert('RGB')
+    gray = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
+
+    # Redimensionar a imagem
+    ratio = 800 / gray.shape[1]  # Defina a largura desejada aqui (800 no exemplo)
+    img = cv2.resize(gray, (int(gray.shape[1] * ratio), 800), interpolation=cv2.INTER_LINEAR)
+    img = Image.fromarray(img)
 
     # Detectar as regiões de texto na imagem
-    text_regions = detect_text_regions(gray)
+    text_regions = detect_text_regions(img)
 
     # Realizar OCR apenas nas regiões de texto
     extracted_text = []
     for (x1, y1, x2, y2) in text_regions:
-        region_image = gray[y1:y2, x1:x2]
+        region_image = img.crop((x1, y1, x2, y2))
         text = pytesseract.image_to_string(region_image, lang='eng')
         extracted_text.append({'text': text, 'region': (x1, y1, x2, y2)})
 
     return extracted_text
 
 # Caminho para a imagem
-image_path = 'imgs/img03.jpg'
+image_path = 'imgs\img01.png'
 
-# Processar a imagem e realizar OCR nas regiões de texto
+# Processar a imagem e realizar OCR nas regiões de textos
 extracted_text = process_image(image_path)
 
 # Exibir os resultados
