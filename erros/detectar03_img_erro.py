@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Carregar a imagem
-image = cv2.imread('imgs/img03.jpg', cv2.IMREAD_GRAYSCALE)
+image = cv2.imread('imgs/img02.webp', cv2.IMREAD_GRAYSCALE)
 
 # Aplicar uma limiarização para obter uma imagem binária
 _, binary_image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
