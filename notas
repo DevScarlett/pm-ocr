@@ -1,0 +1,30 @@
+
+"Optical Engine Mode" (Modo de Motor Óptico)
+
+--oem 0 ou OEM.TESSERACT_ONLY: Este é o modo padrão e mais básico. Neste modo, o Tesseract utiliza apenas o mecanismo de reconhecimento interno, sem fazer uso de outros motores externos.
+
+--oem 1 ou OEM.LSTM_ONLY: Este modo utiliza apenas o mecanismo LSTM (Long Short-Term Memory), que é um tipo de rede neural recorrente. O LSTM é mais avançado e pode produzir resultados melhores em algumas situações, mas também é mais lento do que o modo padrão.
+
+--oem 2 ou OEM.TESSERACT_LSTM_COMBINED: Neste modo, o Tesseract utiliza uma combinação dos mecanismos Tesseract e LSTM. Ele tenta obter o melhor de ambos os mundos, aproveitando as vantagens de cada um.
+
+###################################################################################
+
+"Page Segmentation Mode" (Modo de Segmentação de Página)
+
+--psm 0 ou PSM.OEM_AUTO: Neste modo, o Tesseract tenta determinar automaticamente o layout da página e aplicar a segmentação apropriada com base em análises internas. É uma opção útil quando você não sabe ao certo como a página está estruturada.
+
+--psm 1 ou PSM.SINGLE_BLOCK: Este modo trata a imagem inteira como um único bloco de texto. Não realiza segmentação interna. É útil quando você tem uma única região de texto contínua em sua imagem.
+
+--psm 3 ou PSM.SINGLE_COLUMN: Neste modo, o Tesseract segmenta a página em colunas verticais, considerando que o texto está organizado em uma única coluna.
+
+--psm 4 ou PSM.SINGLE_LINE: Este modo segmenta a página em linhas horizontais. É útil quando você tem várias linhas de texto alinhadas horizontalmente.
+
+--psm 6 ou PSM.SPARSE_TEXT: Neste modo, o Tesseract tenta segmentar a página em pequenos blocos de texto separados. É útil quando há várias regiões de texto independentes na imagem.
+
+--psm 7 ou PSM.OSD_ONLY: Neste modo, o Tesseract realiza apenas a detecção de orientação e script (OSD - Orientation and Script Detection). Não realiza OCR no texto.
+
+--psm 8 ou PSM.AUTO: Neste modo, o Tesseract tenta determinar automaticamente o layout da página e aplicar a segmentação apropriada, incluindo a detecção de várias colunas, linhas e blocos de texto.
+
+###################################################################################
+
+ver tipos de pre processamentos para anotar estudar e ver como aplicar

@@ -1,8 +1,13 @@
+
+# Detecção de regiões de texto em uma imagem usando técnicas de binarização adaptativa, operações morfológicas e detecção de contornos. 
+# O código carrega a imagem, converte para escala de cinza e aplica binarização adaptativa para obter uma imagem binária invertida.
+# Em seguida, são aplicadas operações morfológicas de dilatação e erosão para melhorar a segmentação dos caracteres.
+# A função findContours é usada para encontrar os contornos na imagem binarizada.
+# O código então itera sobre os contornos encontrados e verifica critérios de área, largura e altura para identificar as regiões que podem conter texto.
+# Essas regiões são armazenadas na lista text_regions.
+# Por fim, o código carrega novamente a imagem original, desenha retângulos ao redor das regiões de texto identificadas e exibe a imagem resultante.
+
 import cv2
-import numpy as np
-import pytesseract
-
-
 
 def detect_text_regions(image_path):
     # Carregar a imagem
@@ -32,44 +37,15 @@ def detect_text_regions(image_path):
 
     return text_regions
 
-def read_text(image, region):
-    x1, y1, x2, y2 = region
-
-    # Recortar a região de texto da imagem original
-    roi = image[y1:y2, x1:x2]
-
-    # Converter a região de texto para escala de cinza
-    roi_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-
-    # Realizar a leitura de texto na região
-    custom_config = r'--oem 3 --psm 0'
-    text = pytesseract.image_to_string(roi_gray, config=custom_config)
-    # text = pytesseract.image_to_string(roi_gray)
-
-    return text
-
 # Caminho para a imagem
-image_path = 'imgs/img02.webp'
+image_path = 'imgs/img04.png'
 
 # Detectar as regiões de texto na imagem
 text_regions = detect_text_regions(image_path)
 
-# Carregar a imagem original
+# Desenhar retângulos ao redor das regiões de texto na imagem original
 image = cv2.imread(image_path)
-
-# Configurar o Tesseract OCR
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\luiz.santos\Desktop\Code\pytesseract\tesseract.exe'  # Caminho para o executável do Tesseract OCR
-
-# Iterar sobre as regiões de texto e realizar a leitura
-for region in text_regions:
-    # Ler o texto na região
-    text = read_text(image, region)
-
-    # Imprimir o texto encontrado
-    print(text)
-
-    # Desenhar um retângulo ao redor da região de texto na imagem original
-    x1, y1, x2, y2 = region
+for (x1, y1, x2, y2) in text_regions:
     cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
 # Exibir a imagem com as regiões de texto destacadas
