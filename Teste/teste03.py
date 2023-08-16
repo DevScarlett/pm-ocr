@@ -9,7 +9,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # Configurar o caminho para o executável do Tesseract
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\wallace.santos\Desktop\Tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\\Users\\wallace.santos\\Desktop\\Tesseract\\tesseract.exe'
 
 def ocr_pdf(pdf_path):
     with open(pdf_path, 'rb') as file:
