@@ -1,0 +1,7 @@
+Flask==2.1.1
+PyPDF2==1.26.0
+pytesseract==0.3.8
+Pillow==8.3.2
+pdf2image==1.16.0
+validate-docbr==0.0.13
+nameparser==1.0.6
